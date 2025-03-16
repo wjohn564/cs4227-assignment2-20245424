@@ -3,6 +3,7 @@ package com.cs4227.cs4227_assignment2_20245424.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import static javax.crypto.Cipher.SECRET_KEY;
+
 @Component
 public class JWTUtils {
 
@@ -22,9 +25,9 @@ public class JWTUtils {
     private static final long EXPIRATION_TIME = 86400000;
 
     public JWTUtils() {
-        String secretString = "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo=";
-        byte[] keyBytes = Base64.getDecoder().decode(secretString.getBytes(StandardCharsets.UTF_8));
-        this.key = new SecretKeySpec(keyBytes, "HmacSHA256");
+        String secretString = "qG7s2ZtP9L0rX8yN1dW5mK3cF6aV4pB2";
+        byte[] keyBytes = secretString.getBytes(StandardCharsets.UTF_8);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(UserDetails userDetails) {

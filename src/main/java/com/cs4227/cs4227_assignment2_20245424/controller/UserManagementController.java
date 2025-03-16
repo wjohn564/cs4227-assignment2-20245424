@@ -39,7 +39,7 @@ public class UserManagementController {
         return ResponseEntity.ok(userManagementService.getUsersById(userId));
     }
 
-    @GetMapping("/admin/update/{userId}")
+    @PutMapping("/admin/update/{userId}")
     public ResponseEntity<RequestResponse> updateUser(@PathVariable Integer userId, @RequestBody OurUsers reqres) {
         return ResponseEntity.ok(userManagementService.updateUser(userId, reqres));
     }
@@ -50,5 +50,10 @@ public class UserManagementController {
         String email = authentication.getName();
         RequestResponse response = userManagementService.getMyInfo(email);
         return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @DeleteMapping("/admin/delete/{userId}")
+    public ResponseEntity<RequestResponse> deleteUser(@PathVariable Integer userId) {
+        return ResponseEntity.ok(userManagementService.deleteUser(userId));
     }
 }
